@@ -47,4 +47,6 @@
     <string name="enter_menu_item_name">Enter Menu Item name</string>
     <string name="menu_item_price">Menu Item price</string>
     <string name="enter_menu_item_price">Enter Menu Item price</string>
+    <string name="order_list">Order list</string>
+    <string name="menu_list">Menu List</string>
 </resources>

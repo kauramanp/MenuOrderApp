@@ -4,11 +4,19 @@
         <variable
             name="data"
             type="com.aman.menuorderapp.models.MenuItem" />
+        <variable
+            name="clickListener"
+            type="com.aman.menuorderapp.interfaces.MenuItemClick" />
+        <variable
+            name="position"
+            type="Integer" />
+        <import type="com.aman.menuorderapp.interfaces.ClickType"/>
     </data>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
+    android:gravity="center_vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <TextView
         android:layout_width="wrap_content"
@@ -21,6 +29,16 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="@{data.price.toString()}"/>
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="@{()->clickListener.itemClicked(position,ClickType.edit)}"
+        android:src="@android:drawable/ic_menu_edit"/>
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="@{()->clickListener.itemClicked(position,ClickType.delete)}"
+        android:src="@android:drawable/ic_menu_delete"/>
 
 
 </LinearLayout>
