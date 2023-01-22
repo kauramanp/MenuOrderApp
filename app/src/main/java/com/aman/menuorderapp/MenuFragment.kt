@@ -1,16 +1,16 @@
 package com.aman.menuorderapp
 
+import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aman.menuorderapp.adapters.MenuItemAdapter
 import com.aman.menuorderapp.databinding.DialogMenuItemBinding
-import com.aman.menuorderapp.databinding.FragmentFirstBinding
+import com.aman.menuorderapp.databinding.FragmentMenuBinding
 import com.aman.menuorderapp.interfaces.ClickType
 import com.aman.menuorderapp.interfaces.MenuItemClick
 import com.aman.menuorderapp.models.MenuItem
@@ -18,9 +18,9 @@ import com.aman.menuorderapp.models.MenuItem
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class FirstFragment : Fragment() {
+class MenuFragment : Fragment() {
 
-    private var _binding: FragmentFirstBinding? = null
+    private var _binding: FragmentMenuBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -34,7 +34,7 @@ class FirstFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         mainActivity = activity as MainActivity
-        _binding = FragmentFirstBinding.inflate(inflater, container, false)
+        _binding = FragmentMenuBinding.inflate(inflater, container, false)
         return binding.root
 
     }
@@ -45,6 +45,7 @@ class FirstFragment : Fragment() {
         adapter = MenuItemAdapter(mainActivity)
         binding.rvMenuItem.layoutManager = LinearLayoutManager(mainActivity)
         binding.rvMenuItem.adapter = adapter
+        adapter.updateList(mainActivity.menuItem)
         adapter.setOnClickListener(object :MenuItemClick{
             override fun itemClicked(position: Int, type: ClickType) {
                 when(type){
@@ -52,7 +53,18 @@ class FirstFragment : Fragment() {
                         showDialog(mainActivity.menuItem[position], position)
 
                     }
-                    ClickType.delete->{}
+                    ClickType.delete->{
+                        AlertDialog.Builder(mainActivity).apply {
+                        setTitle(resources.getString(R.string.delete_item))
+                        setMessage(resources.getString(R.string.delete_item_msg))
+                        setPositiveButton(resources.getString(R.string.yes)){_,_->
+                            mainActivity.menuItem.removeAt(position)
+                            adapter.updateList(mainActivity.menuItem)
+                        }
+                        setNegativeButton(resources.getString(R.string.no)){_,_->}
+                            show()
+                        }
+                    }
                 }
             }
         })
@@ -66,6 +78,9 @@ class FirstFragment : Fragment() {
         var dialog = Dialog(mainActivity)
         dialog.setContentView(dialogBinding.root)
         dialogBinding.menuItem = menuItem
+        if(position<0){
+            dialogBinding.btnAdd.setText(mainActivity.resources.getString(R.string.add))
+        }
         dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT)
         dialogBinding.btnAdd.setOnClickListener {
             if(dialogBinding.etItemName.text.isNullOrEmpty()){

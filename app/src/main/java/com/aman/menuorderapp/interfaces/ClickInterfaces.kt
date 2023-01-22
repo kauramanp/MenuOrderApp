@@ -10,3 +10,10 @@ interface MenuItemClick {
 enum class ClickType{
     edit, delete
 }
+enum class QtyType{
+   add, minus
+}
+
+interface OrderItemClick {
+    fun OrderItemClicked(position:Int, type:QtyType)
+}

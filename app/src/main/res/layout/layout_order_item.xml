@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="data"
+            type="com.aman.menuorderapp.models.MenuItem" />
+        <variable
+            name="clickListener"
+            type="com.aman.menuorderapp.interfaces.OrderItemClick" />
+        <variable
+            name="position"
+            type="Integer" />
+        <import type="com.aman.menuorderapp.interfaces.QtyType"/>
+    </data>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@{data.menuItem}"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@{data.price.toString()}"/>
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="@{()->clickListener.OrderItemClicked(position,QtyType.minus)}"
+        android:src="@drawable/ic_minus"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/margin_10dp"
+        android:text="@{String.valueOf(data.quantity)}"/>
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="@{()->clickListener.OrderItemClicked(position,QtyType.add)}"
+        android:src="@drawable/ic_add"/>
+
+
+</LinearLayout>
+</layout>

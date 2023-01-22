@@ -3,26 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/orderFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.aman.menuorderapp.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
-
-        <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-    </fragment>
+        android:id="@+id/orderFragment"
+        android:name="com.aman.menuorderapp.OrderFragment"
+        android:label="@string/order_list"
+        tools:layout="@layout/fragment_order" />
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.aman.menuorderapp.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
-
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-    </fragment>
+        android:id="@+id/menuFragment"
+        android:name="com.aman.menuorderapp.MenuFragment"
+        android:label="@string/menu_list"
+        tools:layout="@layout/fragment_menu" />
 </navigation>

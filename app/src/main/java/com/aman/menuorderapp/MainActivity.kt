@@ -28,14 +28,26 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         val navController = findNavController(R.id.nav_host_fragment_content_main)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
+        appBarConfiguration = AppBarConfiguration(setOf(R.id.orderFragment, R.id.menuFragment))
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+        binding.bnv.setOnItemSelectedListener {
+            when(it.itemId){
+                R.id.bnOrder->{
+                    navController.navigate(R.id.orderFragment)
+                }
+                R.id.bnMenu->{
+                    navController.navigate(R.id.menuFragment)
+                }
+            }
+            return@setOnItemSelectedListener true
+        }
 
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
+   //     menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 

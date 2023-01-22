@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/btnAdd"
         android:layout_marginTop="@dimen/margin_10dp"
-        android:text="@{btnText}"
+        android:text="@string/update"
         android:layout_gravity="center"/>
 
 </LinearLayout>
