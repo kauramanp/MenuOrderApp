@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aman.menuorderapp.adapters.MenuItemAdapter
 import com.aman.menuorderapp.databinding.DialogMenuItemBinding
@@ -82,11 +83,25 @@ class MenuFragment : Fragment() {
             dialogBinding.btnAdd.setText(mainActivity.resources.getString(R.string.add))
         }
         dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialogBinding.etItemName.doOnTextChanged { text, start, before, count ->
+            if((text?.length?:0)>0){
+                dialogBinding.tilItemName.isErrorEnabled = false
+            }
+        }
+        dialogBinding.etItemPrice.doOnTextChanged { text, start, before, count ->
+            if((text?.length?:0)>0){
+                dialogBinding.tilItemPrice.isErrorEnabled = false
+            }
+        }
         dialogBinding.btnAdd.setOnClickListener {
             if(dialogBinding.etItemName.text.isNullOrEmpty()){
+                dialogBinding.tilItemName.error = mainActivity.resources.getString(R.string.enter_menu_item_name)
+                dialogBinding.tilItemName.isErrorEnabled = true
                 dialogBinding.etItemName.requestFocus()
                 return@setOnClickListener
             }else if(dialogBinding.etItemPrice.text.isNullOrEmpty()){
+                dialogBinding.tilItemPrice.isErrorEnabled = true
+                dialogBinding.tilItemPrice.error = mainActivity.resources.getString(R.string.enter_menu_item_price)
                 dialogBinding.etItemPrice.requestFocus()
                 return@setOnClickListener
             }else if(position == -1){
