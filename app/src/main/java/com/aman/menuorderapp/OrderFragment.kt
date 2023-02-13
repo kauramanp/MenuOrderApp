@@ -46,13 +46,6 @@ class OrderFragment : Fragment() {
 
         menuAdapter = ArrayAdapter(mainActivity, android.R.layout.simple_list_item_1, mainActivity.menuItem)
         binding.spinnerMenu.adapter = menuAdapter
-        binding.spinnerMenu.setOnItemSelectedListener(object: OnItemSelectedListener{
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-            }
-        })
 
 
         orderItemAdapter = OrderItemAdapter(mainActivity, object : OrderItemClick{
@@ -70,10 +63,9 @@ class OrderFragment : Fragment() {
                     }
                 }
                 orderItemAdapter.updateList(orderList)
-
-
             }
         })
+
         binding.rvOrder.apply {
             layoutManager = LinearLayoutManager(mainActivity)
             adapter = orderItemAdapter
@@ -83,7 +75,13 @@ class OrderFragment : Fragment() {
                 Toast.makeText(mainActivity, resources.getString(R.string.add_menu_items), Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
-            orderList.add(mainActivity.menuItem[binding.spinnerMenu.selectedItemPosition])
+            var newIndex = -1
+            newIndex = orderList.indexOfFirst { element->element.menuItem ==  mainActivity.menuItem[binding.spinnerMenu.selectedItemPosition].menuItem}
+            if(newIndex>-1){
+                orderList[newIndex].quantity++
+            }else {
+                orderList.add(mainActivity.menuItem[binding.spinnerMenu.selectedItemPosition])
+            }
             orderItemAdapter.updateList(orderList)
         }
     }
