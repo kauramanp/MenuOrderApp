@@ -6,10 +6,12 @@
         android:id="@+id/bnOrder"
         android:orderInCategory="100"
         android:title="@string/order_list"
+        android:icon="@drawable/ic_order"
         app:showAsAction="never" />
     <item
         android:id="@+id/bnMenu"
         android:orderInCategory="100"
         android:title="@string/menu_list"
+        android:icon="@drawable/ic_menu_list"
         app:showAsAction="never" />
 </menu>
